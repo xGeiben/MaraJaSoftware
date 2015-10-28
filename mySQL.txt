@@ -1,0 +1,106 @@
+create database Maraja;
+use Maraja;
+create table CLIENTES(
+NOMBRE varchar(200) PRIMARY KEY NOT NULL,
+TELEFONO varchar(20) NOT NULL,
+DIRECCION varchar(200) NOT NULL,
+REPARTIDOR varchar(100) NOT NULL,
+ADEUDO int(20) NOT NULL,
+ULTIMOPAGO date NOT NULL);
+
+create table HISTORIAL(
+Repartidor varchar(200) NOT NULL,
+CargaMedioLT int(20) NOT NULL,
+CargaLT int(20) NOT NULL,
+FiadoMedioLT int(20) NOT NULL,
+FiadoLT int(20) NOT NULL,
+VendidoMedioLT int(20) NOT NULL,
+VendidoLT int(20) NOT NULL,
+MermaMedioLT int(20) NOT NULL,
+MermaLitro int(20) NOT NULL,
+GananciaDiaria int(20) NOT NULL,
+FiadoTotal int(20) NOT NULL,
+GananciaReal varchar(20) NOT NULL,
+Fecha Date NOT NULL);
+
+create table NOTASPAGADAS(
+Nombre varchar(200) NOT NULL REFERENCES CLIENTES(NOMBRE),
+Monto int(20) NOT NULL,
+Fecha date NOT NULL);
+
+create table NOTASPENDIENTES(
+Nombre varchar(200) NOT NULL REFERENCES CLIENTES(NOMBRE),
+Monto int(20) NOT NULL,
+Fecha date NOT NULL); 
+
+
+create table INVENTARIO(
+Producto varchar(200) PRIMARY KEY NOT NULL,
+Cantidad int(20)  );
+
+insert into Maraja.inventario(Producto,Cantidad) Values ('Cebada L',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Horchata L',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Jamaica L',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Jazmin L',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Limon L',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Maracuya L',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Naranjita L',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Piña L',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Tamarindo L',-1);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Cebada 1/2',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Horchata 1/2',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Jamaica 1/2',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Jazmin 1/2',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Limon 1/2',-2000);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Maracuya 1/2',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Naranjita 1/2',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Piña 1/2',0);
+insert into Maraja.inventario(Producto,Cantidad) Values ('Tamarindo 1/2',0);
+delete from inventario;
+select * from Maraja.INVENTARIO;
+drop table inventario;
+update inventario set Cantidad = 0 where Cantidad <= 0;
+
+
+drop table INVENTARIO;
+insert into Maraja.clientes(NOMBRE,TELEFONO,DIRECCION,REPARTIDOR,ADEUDO,ULTIMOPAGO) values ('Manuel Ortiz','6672378459','Calle primavera Col. Las quintas #4758','Fransisco Javier', '2500', '2014-05-03');
+insert into Maraja.clientes(NOMBRE,TELEFONO,DIRECCION,ADEUDO,ULTIMOPAGO) values ('Super Bix Sanalona','66857459','Calle primavera Col. Las quintas #4758', '5000', '2015-08-16');
+insert into Maraja.clientes(NOMBRE,TELEFONO,DIRECCION,ADEUDO,ULTIMOPAGO) values ('Super guadalupe','6672378459','Calle primavera Col. Las quintas #4758', '1350', '2015-11-07');
+insert into Maraja.clientes(NOMBRE,TELEFONO,DIRECCION,ADEUDO,ULTIMOPAGO) values ('Joel Perez','6672378459','Calle primavera Col. Las quintas #4758', '3254', '2014-04-03');
+insert into Maraja.historial(Repartidor,FiadoMedioLT,FiadoLT,VendidoMedioLT,VendidoLT,GananciaDiaria,FiadoTotal,GananciaReal,Fecha) values ('Francisco Javier','35','50','45','45','1500','1000','500','2015-07-30');
+insert into Maraja.historial(Repartidor,FiadoMedioLT,FiadoLT,VendidoMedioLT,VendidoLT,GananciaDiaria,FiadoTotal,GananciaReal,Fecha) values ('Martin','45','65','50','45','2000','1000','1000','2015-07-30');
+insert into Maraja.historial(Repartidor,FiadoMedioLT,FiadoLT,VendidoMedioLT,VendidoLT,GananciaDiaria,FiadoTotal,GananciaReal,Fecha) values ('Julian','25','30','40','35','1300','700','600','2015-07-30');
+insert into Maraja.historial(Repartidor,FiadoMedioLT,FiadoLT,VendidoMedioLT,VendidoLT,GananciaDiaria,FiadoTotal,GananciaReal,Fecha) values ('prueba test','35','50','45','45','1500','1000','500','2015-07-30');
+insert into Maraja.historial(Repartidor,FiadoMedioLT,FiadoLT,VendidoMedioLT,VendidoLT,GananciaDiaria,FiadoTotal,GananciaReal) values ('Francisco Javier','35','50','45','45','1500','1000','500');
+
+select * from Maraja.clientes where Nombre = "Manuel Ortiz";
+select * from MaraJa.clientes;
+select * from Historial;
+select * from Historial where Fecha = "2015-07-30";
+
+delete from Clientes where Nombre = 'Manuel Ortiz';
+delete from Historial;
+truncate table historial;
+alter table HISTORIAL
+ADD Fecha Date NOT NULL;
+ALTER TABLE HISTORIAL;
+ALTER TABLE HISTORIAL;
+
+insert into Maraja.clientes(NOMBRE,TELEFONO,DIRECCION,ADEUDO,ULTIMOPAGO) values ('Joel Perez','6672378459','Calle primavera Col. Las quintas #4758', '3254', '2014-04-03');
+
+select * from CLIENTES;
+update Clientes set ADEUDO = 0 where nombre = 'Geiben Varela';
+update Clientes set ADEUDO = 0, TELEFONO = '7 99 99 99' where nombre = 'Geiben Varela';
+delete from notaspendientes;
+
+drop table NOTASPENDIENTES;
+
+
+select * from NOTASPENDIENTES;
+select * from NOTASPAGADAS;
+delete from NOTASPENDIENTES where Monto = '150';
+
+insert into NOTASPENDIENTES(Nombre,Monto,Fecha) values ('Geiben Varela','150','2015-05-05');
+
+update NOTASPENDIENTES set Monto = 0 where Nombre = 'Geiben Varela' and Fecha = '2015-05-05' Limit 1;
+delete from NOTASPENDIENTES where Nombre = 'Geiben Varela' and Monto = '150' and Fecha = '2014-01-01' Limit 1;

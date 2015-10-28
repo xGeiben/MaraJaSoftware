@@ -1,0 +1,51 @@
+create database controltaller;
+
+
+
+use controltaller;
+
+
+
+create TABLE inventario(
+
+codigo VARCHAR(20) PRIMARY KEY NOT NULL, 
+
+descripcion VARCHAR(200) NOT NULL,
+precio double(6,2) NOT NULL ,
+cantidad integer NOT NULL
+
+);
+
+
+
+create table motocicletas(
+
+codigo varchar(20) primary key not null,
+
+matricula varchar(20) not null
+
+);
+
+
+
+create table registroentrada(
+codigo varchar(20) primary key not null,
+
+precio double(6,2) ,
+cantidad integer not null
+
+);
+
+
+
+create table registrosalida(
+
+codigo varchar(20) primary key not null,
+
+cantidad integer not null,
+
+motocicleta varchar(20) not null,
+
+foreign key (motocicleta) references motocicletas(codigo)
+
+);
