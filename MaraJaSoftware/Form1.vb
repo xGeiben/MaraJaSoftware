@@ -38,47 +38,12 @@ Public Class Form1
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-
-        MySqlConn.ConnectionString = "server=localhost;userid=root;password='';database=Maraja"
-        Dim READER As MySqlDataReader
-        Dim SDA As New MySqlDataAdapter
-        Dim dbDataSet As New DataTable
-        Dim bSource As New BindingSource
         Dim Query As String
-        Try
-            MySqlConn.Open()
-
-            Query = "insert into Maraja.historial(Repartidor,CargaMedioLT,CargaLT,FiadoMedioLT,FiadoLT,VendidoMedioLT,VendidoLT,MermaMedioLT,MermaLitro,GananciaDiaria,FiadoTotal,GananciaReal,Fecha) values ('" & TxtRepartidor.Text & "','" & TextBox2.Text & "','" & TextBox3.Text & "','" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox6.Text & "','" & TextBox7.Text & "','" & TextBox1.Text & "','" & TextBox14.Text & "' ,'" & TextBox8.Text & "','" & TextBox9.Text & "','" & TextBox10.Text & "','" & Format(CDate(Date.Now.ToShortDateString), "yyyy/MM/dd") & "');"
-
-            Command = New MySqlCommand(Query, MySqlConn)
-            READER = Command.ExecuteReader
-            MessageBox.Show("Información Guardada")
-
-            MySqlConn.Close()
-
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        Finally
-            MySqlConn.Dispose()
-        End Try
-
-        Try
-            MySqlConn.Open()
-            Query = "Select * from Maraja.historial where Fecha = '" & Format(CDate(Date.Now.ToShortDateString), "yyyy/MM/dd") & "'"
-            Command = New MySqlCommand(Query, MySqlConn)
-            SDA.SelectCommand = Command
-            SDA.Fill(dbDataSet)
-            bSource.DataSource = dbDataSet
-            DataGridView2.DataSource = bSource
-            SDA.Update(dbDataSet)
-
-            MySqlConn.Close()
-        Catch ex As Exception
-            MessageBox.Show("Error")
-        Finally
-            MySqlConn.Dispose()
-        End Try
-
+        Query = "insert into Maraja.historial(Repartidor,CargaMedioLT,CargaLT,FiadoMedioLT,FiadoLT,VendidoMedioLT,VendidoLT,MermaMedioLT,MermaLitro,GananciaDiaria,FiadoTotal,GananciaReal,Fecha) values ('" & TxtRepartidor.Text & "','" & TextBox2.Text & "','" & TextBox3.Text & "','" & TextBox4.Text & "','" & TextBox5.Text & "','" & TextBox6.Text & "','" & TextBox7.Text & "','" & TextBox1.Text & "','" & TextBox14.Text & "' ,'" & TextBox8.Text & "','" & TextBox9.Text & "','" & TextBox10.Text & "','" & Format(CDate(Date.Now.ToShortDateString), "yyyy/MM/dd") & "');"
+        Consulta(Query)
+        MessageBox.Show("Información Guardada")
+        Query = "Select * from Maraja.historial where Fecha = '" & Format(CDate(Date.Now.ToShortDateString), "yyyy/MM/dd") & "'"
+        ConsultaDespliega(Query)
         TxtRepartidor.Clear()
         TextBox2.Clear()
         TextBox3.Clear()
@@ -97,40 +62,17 @@ Public Class Form1
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        MySqlConn.ConnectionString = "server=localhost;userid=root;password='';database=Maraja"
-        Dim SDA As New MySqlDataAdapter
-        Dim dbDataSet As New DataTable
-        Dim bSource As New BindingSource
-        Try
-            MySqlConn.Open()
-            Dim Query As String
-            If TxtRepartidor2.Text = String.Empty Then
-                Query = "select * from Maraja.CLIENTES"
-            Else
-                Query = "Select * from Maraja.Clientes where Repartidor = '" & TxtRepartidor2.Text & "' ;"
-            End If
-
-            Command = New MySqlCommand(Query, MySqlConn)
-            SDA.SelectCommand = Command
-            SDA.Fill(dbDataSet)
-            bSource.DataSource = dbDataSet
-            DataGridView2.DataSource = bSource
-            SDA.Update(dbDataSet)
-            MySqlConn.Close()
-        Catch ex As Exception
-            MessageBox.Show("No existen registros con esos parametros")
-        Finally
-            MySqlConn.Dispose()
-        End Try
+        Dim Query As String
+        If TxtRepartidor2.Text = String.Empty Then
+            Query = "select * from Maraja.CLIENTES"
+        Else
+            Query = "Select * from Maraja.Clientes where Repartidor = '" & TxtRepartidor2.Text & "' ;"
+        End If
+        ConsultaDespliega(Query)
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        MySqlConn.ConnectionString = "server=localhost;userid=root;password='';database=Maraja"
-        'Dim READER As MySqlDataReader
-        Dim SDA As New MySqlDataAdapter
-        Dim dbDataSet As New DataTable
-        Dim bSource As New BindingSource
-        Dim Query, Query2, Query3 As String
+        Dim Query, Query2 As String
         Dim mySet As String = "MiDataSet"
         Dim Tabladatos As New DataSet
         Dim MontoNota, MontoAbono, MontoAdeudo, MontoAUX As Integer
@@ -138,9 +80,6 @@ Public Class Form1
         Dim Control As Boolean
 
         Try
-
-
-
             If TextBox12.Text = String.Empty Then
                 'En caso de que sea un ADEUDO mas compruebo que no exista una nota con MONTO NEGATIVO
                 'Busco La nota pendiente mas vieja y almaceno datos necesarios en variables.
